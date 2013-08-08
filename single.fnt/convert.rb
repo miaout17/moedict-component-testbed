@@ -13,10 +13,13 @@ File.read('single.fnt').lines.each do |line|
     components = value.gsub(/[0-9A-F]+/, '')
     next if components.empty?
     comp_char[components] += key
-    # p [components, comp_char[components]] if comp_char[components].length>1
   else
     STDERR.puts "Unhandled line: #{line}"
   end
+end
+
+comp_char.to_a.each do |key, value|
+  comp_char[key] = value.chars.to_a.uniq.join
 end
 
 File.open('comp_char.json', 'wb') do |f|
